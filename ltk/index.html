@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>OW 三国杀 - 完整操作指南</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            color: #4ecdc4;
+        }
+        .section h3 {
+            font-size: 1.2em;
+            margin: 15px 0 10px;
+            color: #ffd700;
+        }
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .control-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+        }
+        .control-card .key {
+            display: inline-block;
+            background: #333;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-right: 10px;
+        }
+        .card-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .card-table th, .card-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-table th {
+            background: rgba(255,255,255,0.1);
+            color: #ffd700;
+        }
+        .card-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .type-basic { background: #4ecdc4; color: #000; }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .hero-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+        .hero-card.assault { border-color: #ff6b6b; }
+        .hero-card.tank { border-color: #4ecdc4; }
+        .hero-card.support { border-color: #95e1d3; }
+        .hero-card.defense { border-color: #f9ca24; }
+        .hero-name { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; }
+        .hero-type { font-size: 0.85em; color: #888; margin-bottom: 8px; }
+        .hero-hp {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        .skill {
+            background: rgba(0,0,0,0.2);
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .skill-name { color: #ffd700; font-weight: bold; }
+        .identity-flow {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .identity-card {
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 100px;
+        }
+        .identity-card.lord { background: linear-gradient(135deg, #ffd700, #ff6b6b); color: #000; }
+        .identity-card.loyalist { background: linear-gradient(135deg, #4ecdc4, #44a085); color: #000; }
+        .identity-card.rebel { background: linear-gradient(135deg, #ff6b6b, #c0392b); color: #fff; }
+        .identity-card.renegade { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: #fff; }
+        .identity-card .count { font-size: 1.5em; font-weight: bold; }
+        .identity-card .name { font-size: 0.9em; margin-top: 5px; }
+        .phase-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .phase-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .phase-list li:last-child { border-bottom: none; }
+        .phase-list li strong { color: #4ecdc4; }
+        .note {
+            background: rgba(249, 202, 36, 0.1);
+            border: 1px solid #f9ca24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .note strong { color: #f9ca24; }
+        .code-block {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OW 三国杀</h1>
+        <p class="subtitle">Overwatch Workshop x 三国杀身份场 - 完整操作指南</p>
+        <p class="subtitle">作者：B 站/抖音/小红书 @小冰爱吃盐</p>
+
+        <!-- 游戏导入 -->
+        <div class="section">
+            <h2>📥 如何导入游戏</h2>
+            <ol class="phase-list" style="margin-left: 20px;">
+                <li>编译项目：<code class="code-block">overpy compile src/main.opy --output dist/sanguosha.ws</code></li>
+                <li>打开 Overwatch，选择 <strong>自定义游戏</strong></li>
+                <li>进入 <strong>创意工坊 (Workshop)</strong></li>
+                <li>点击 <strong>导入脚本 (Import Script)</strong></li>
+                <li>选择 <code>dist/sanguosha.ws</code> 文件</li>
+                <li>创建房间，邀请 5-8 名玩家</li>
+                <li>主持人按住互动键开始游戏</li>
+            </ol>
+        </div>
+
+        <!-- 身份系统 -->
+        <div class="section">
+            <h2>🎭 身份系统</h2>
+            <p>游戏支持 5-8 人局，身份配置如下：</p>
+
+            <h3>5 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">1</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">2</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <h3>6 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">2</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">2</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <h3>7 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">2</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">3</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <h3>8 人局（推荐）</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">2</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">4</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <div class="note">
+                <strong>胜利条件：</strong><br>
+                • 主公死亡 → 反贼胜利<br>
+                • 所有反贼和内奸死亡 → 主公和忠臣胜利<br>
+                • 内奸需要活到最后并消灭主公才能单独获胜
+            </div>
+        </div>
+
+        <!-- 英雄列表 -->
+        <div class="section">
+            <h2>🦸 12 英雄技能</h2>
+            <div class="hero-grid">
+                <div class="hero-card assault">
+                    <div class="hero-name">源氏 (Genji)</div>
+                    <div class="hero-type">突击型 Assault</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【闪影】</span> 使用闪时摸一张牌</div>
+                    <div class="skill"><span class="skill-name">【斩】</span> 杀不可被闪避（锁定技）</div>
+                </div>
+                <div class="hero-card assault">
+                    <div class="hero-name">猎空 (Tracer)</div>
+                    <div class="hero-type">突击型 Assault</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【闪回】</span> 受伤时获得闪</div>
+                    <div class="skill"><span class="skill-name">【脉冲】</span> 杀体力低于你的角色伤害 +1</div>
+                </div>
+                <div class="hero-card assault">
+                    <div class="hero-name">麦克雷 (Cassidy)</div>
+                    <div class="hero-type">突击型 Assault</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【神射手】</span> 展示手牌造成伤害</div>
+                    <div class="skill"><span class="skill-name">【闪光弹】</span> 使目标本回合不能使用闪</div>
+                </div>
+                <div class="hero-card tank">
+                    <div class="hero-name">D.Va</div>
+                    <div class="hero-type">重装型 Tank</div>
+                    <div class="hero-hp">❤️❤️❤️❤️ (4 HP)</div>
+                    <div class="skill"><span class="skill-name">【防御矩阵】</span> 成为杀的目标时摸一张牌</div>
+                    <div class="skill"><span class="skill-name">【自爆】</span> 死亡时对全场造成伤害</div>
+                </div>
+                <div class="hero-card tank">
+                    <div class="hero-name">莱因哈特</div>
+                    <div class="hero-type">重装型 Tank</div>
+                    <div class="hero-hp">❤️❤️❤️❤️ (4 HP)</div>
+                    <div class="skill"><span class="skill-name">【屏障】</span> 受伤时防止伤害</div>
+                    <div class="skill"><span class="skill-name">【冲锋】</span> 杀距离 1 无闪目标伤害 +1</div>
+                </div>
+                <div class="hero-card tank">
+                    <div class="hero-name">路霸</div>
+                    <div class="hero-type">重装型 Tank</div>
+                    <div class="hero-hp">❤️❤️❤️❤️ (4 HP)</div>
+                    <div class="skill"><span class="skill-name">【鸡飞狗跳】</span> 摸 2 牌或回 1 血</div>
+                    <div class="skill"><span class="skill-name">【钩子】</span> 获得距离 1 目标的一张牌</div>
+                </div>
+                <div class="hero-card support">
+                    <div class="hero-name">天使</div>
+                    <div class="hero-type">支援型 Support</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【守护天使】</span> 防止队友受到的伤害</div>
+                    <div class="skill"><span class="skill-name">【重生】</span> 死亡时回复体力</div>
+                </div>
+                <div class="hero-card support">
+                    <div class="hero-name">卢西奥</div>
+                    <div class="hero-type">支援型 Support</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【加速】</span> 计算距离时 -1（锁定技）</div>
+                    <div class="skill"><span class="skill-name">【音波】</span> 本回合出杀次数上限 +1</div>
+                </div>
+                <div class="hero-card support">
+                    <div class="hero-name">安娜</div>
+                    <div class="hero-type">支援型 Support</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【生物步枪】</span> 桃可以当杀使用</div>
+                    <div class="skill"><span class="skill-name">【纳米激素】</span> 指定角色杀次数 +1 伤害 +1</div>
+                </div>
+                <div class="hero-card defense">
+                    <div class="hero-name">士兵 76</div>
+                    <div class="hero-type">防御型 Defense</div>
+                    <div class="hero-hp">❤️❤️❤️❤️ (4 HP)</div>
+                    <div class="skill"><span class="skill-name">【战术目镜】</span> 杀可以当决斗使用</div>
+                    <div class="skill"><span class="skill-name">【螺旋飞弹】</span> 杀造成伤害后摸牌</div>
+                </div>
+                <div class="hero-card defense">
+                    <div class="hero-name">托比昂</div>
+                    <div class="hero-type">防御型 Defense</div>
+                    <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
+                    <div class="skill"><span class="skill-name">【锻造锤】</span> 手牌可以当铁索连环使用</div>
+                    <div class="skill"><span class="skill-name">【炮台】</span> 其他角色计算与你的距离 +1（锁定技）</div>
+                </div>
+                <div class="hero-card defense">
+                    <div class="hero-name">温斯顿</div>
+                    <div class="hero-type">防御型 Defense</div>
+                    <div class="hero-hp">❤️❤️❤️❤️ (4 HP)</div>
+                    <div class="skill"><span class="skill-name">【跳跃背包】</span> 计算距离时 -1（锁定技）</div>
+                    <div class="skill"><span class="skill-name">【原始暴怒】</span> 失去 1 点体力后本回合杀次数 +2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡牌系统 -->
+        <div class="section">
+            <h2>🃏 卡牌系统</h2>
+
+            <h3>基本牌</h3>
+            <table class="card-table">
+                <tr><th>卡牌</th><th>数量</th><th>使用方式</th><th>效果</th></tr>
+                <tr><td><span class="card-type type-basic">杀</span></td><td>30</td><td>按住 LMB 瞄准目标</td><td>对目标造成 1 点伤害（需在攻击范围内）</td></tr>
+                <tr><td><span class="card-type type-basic">闪</span></td><td>15</td><td>自动响应</td><td>抵消一次杀的伤害</td></tr>
+                <tr><td><span class="card-type type-basic">桃</span></td><td>8</td><td>按住 E</td><td>回复 1 点体力</td></tr>
+                <tr><td><span class="card-type type-basic">酒</span></td><td>6</td><td>按住 Q</td><td>本回合杀伤害 +1</td></tr>
+            </table>
+
+            <div class="note">
+                <strong>牌堆说明：</strong>游戏开始时初始化牌堆，包含杀 30 张、闪 15 张、桃 8 张、酒 6 张。牌堆空时会重洗弃牌堆。
+            </div>
+        </div>
+
+        <!-- 距离系统 -->
+        <div class="section">
+            <h2>📏 距离系统</h2>
+            <p>距离计算基于座位差，并受以下因素影响：</p>
+            <ul class="phase-list">
+                <li><strong>基础距离</strong> = |座位 A - 座位 B|</li>
+                <li><strong>卢西奥【加速】</strong>：计算距离时 -1</li>
+                <li><strong>温斯顿【跳跃背包】</strong>：计算距离时 -1</li>
+                <li><strong>托比昂【炮台】</strong>：别人计算与他的距离 +1</li>
+            </ul>
+            <div class="note">
+                <strong>攻击范围：</strong>默认攻击范围为 1。需要距离 ≤ 攻击范围才能使用杀。
+            </div>
+        </div>
+
+        <!-- 游戏流程 -->
+        <div class="section">
+            <h2>📋 游戏流程</h2>
+            <ol class="phase-list">
+                <li><strong>WAITING - 等待阶段</strong> - 等待玩家加入（5-8 人）</li>
+                <li><strong>PREPARING - 准备阶段</strong> - 主持人按住互动键开始，分发身份</li>
+                <li><strong>SELECTING_HEROES - 英雄选择</strong> - 按 F1-F12 选择 OW 英雄</li>
+                <li><strong>PLAYING - 游戏进行中</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>判定阶段</strong> - 延时锦囊生效</li>
+                        <li><strong>摸牌阶段</strong> - 摸 2 张牌</li>
+                        <li><strong>出牌阶段</strong> - 使用任意张牌（杀受次数限制）</li>
+                        <li><strong>弃牌阶段</strong> - 手牌数 ≤ 当前体力</li>
+                        <li><strong>结束阶段</strong> - 轮到下家</li>
+                    </ul>
+                </li>
+                <li><strong>GAME_OVER - 游戏结束</strong> - 显示胜利信息，10 秒后重置</li>
+            </ol>
+        </div>
+
+        <!-- 技术细节 -->
+        <div class="section">
+            <h2>⚙️ 技术实现细节</h2>
+            <div class="note">
+                <strong>项目架构：</strong><br>
+                • OverPy 编译器：https://github.com/Zezombye/overpy<br>
+                • 源代码：src/*.opy<br>
+                • 编译输出：dist/sanguosha.ws<br>
+                • 设计文档：docs/superpowers/specs/<br>
+                • 实现计划：docs/superpowers/plans/
+            </div>
+
+            <h3>模块结构</h3>
+            <ul class="phase-list">
+                <li><strong>main.opy</strong> - 主入口，游戏主循环</li>
+                <li><strong>config.opy</strong> - 配置、枚举、常量</li>
+                <li><strong>identity.opy</strong> - 身份系统、胜利条件</li>
+                <li><strong>hero_selection.opy</strong> - 英雄选择系统</li>
+                <li><strong>heroes/*.opy</strong> - 12 个英雄技能实现</li>
+                <li><strong>card.opy</strong> - 卡牌系统、距离计算</li>
+                <li><strong>turn.opy</strong> - 回合流程管理</li>
+                <li><strong>damage.opy</strong> - 伤害计算、技能触发</li>
+                <li><strong>hud.opy</strong> - HUD 显示系统</li>
+            </ul>
+
+            <h3>OverPy 语法</h3>
+            <div class="code-block">
+#!include "config.opy"
+
+globalvar gameStatus
+playervar currentHP
+
+enum GameStatus:
+    WAITING = 0
+    PLAYING = 1
+
+rule "游戏开始":
+    @Condition gameStatus == GameStatus.WAITING
+    @Condition hostPlayerVar.isHoldingButton(Button.INTERACT)
+    gameStatus = GameStatus.PLAYING
+            </div>
+        </div>
+
+        <!-- 编译命令 -->
+        <div class="section">
+            <h2>🔧 编译命令</h2>
+            <div class="code-block">
+# 使用 overpy 编译
+overpy compile src/main.opy --output dist/sanguosha.ws
+
+# 或使用 npx
+npx overpy compile src/main.opy --output dist/sanguosha.ws
+            </div>
+        </div>
+    </div>
+</body>
+</html>
