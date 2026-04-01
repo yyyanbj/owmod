@@ -7,7 +7,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SSWD_SRC="$HOME/workspace/ow-sswd/docs/visual-companion.html"
-LTK_SRC="$HOME/workspace/ow-ltk/visual-companion.html"
+LTK_SRC="$HOME/workspace/ow-ltk/docs/visual-companion.html"
 
 SSWD_DST="$SCRIPT_DIR/sswd/index.html"
 SGS_DST="$SCRIPT_DIR/sgs/index.html"
