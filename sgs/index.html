@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYGMRV8SZ9"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-PYGMRV8SZ9');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale-1.0">
     <title>OW 三国杀 - 完整操作指南</title>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -172,8 +165,26 @@
             overflow-x: auto;
         }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYGMRV8SZ9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PYGMRV8SZ9');
+    </script>
 </head>
 <body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="../index.html" class="navbar-brand">🎮 OW Workshop</a>
+            <div class="navbar-links">
+                <a href="../sgs/index.html">三国杀</a>
+                <a href="../sswd/index.html">谁是卧底</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1>OW 三国杀</h1>
         <p class="subtitle">Overwatch Workshop x 三国杀身份场 - 完整操作指南</p>
@@ -188,7 +199,7 @@
                 <li>进入 <strong>创意工坊 (Workshop)</strong></li>
                 <li>点击 <strong>导入脚本 (Import Script)</strong></li>
                 <li>选择 <code>dist/sanguosha.ws</code> 文件</li>
-                <li>创建房间，邀请 5-8 名玩家</li>
+                <li>创建房间，邀请 2-10 名玩家</li>
                 <li>主持人按住互动键开始游戏</li>
             </ol>
         </div>
@@ -196,7 +207,28 @@
         <!-- 身份系统 -->
         <div class="section">
             <h2>🎭 身份系统</h2>
-            <p>游戏支持 5-8 人局，身份配置如下：</p>
+            <p>游戏支持 2-10 人局，身份配置如下：</p>
+
+            <h3>2 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <h3>3 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">1</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">1</div><div class="name">反贼</div></div>
+            </div>
+
+            <h3>4 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">1</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">1</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
 
             <h3>5 人局</h3>
             <div class="identity-flow">
@@ -230,6 +262,22 @@
                 <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
             </div>
 
+            <h3>9 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">3</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">4</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
+            <h3>10 人局</h3>
+            <div class="identity-flow">
+                <div class="identity-card lord"><div class="count">1</div><div class="name">主公</div></div>
+                <div class="identity-card loyalist"><div class="count">3</div><div class="name">忠臣</div></div>
+                <div class="identity-card rebel"><div class="count">5</div><div class="name">反贼</div></div>
+                <div class="identity-card renegade"><div class="count">1</div><div class="name">内奸</div></div>
+            </div>
+
             <div class="note">
                 <strong>胜利条件：</strong><br>
                 • 主公死亡 → 反贼胜利<br>
@@ -246,7 +294,7 @@
                     <div class="hero-name">源氏 (Genji)</div>
                     <div class="hero-type">突击型 Assault</div>
                     <div class="hero-hp">❤️❤️❤️ (3 HP)</div>
-                    <div class="skill"><span class="skill-name">【闪影】</span> 使用闪时摸一张牌</div>
+                    <div class="skill"><span class="skill-name">【影斩】</span> 使用杀时额外造成 1 点伤害</div>
                     <div class="skill"><span class="skill-name">【斩】</span> 杀不可被闪避（锁定技）</div>
                 </div>
                 <div class="hero-card assault">
@@ -366,7 +414,7 @@
         <div class="section">
             <h2>📋 游戏流程</h2>
             <ol class="phase-list">
-                <li><strong>WAITING - 等待阶段</strong> - 等待玩家加入（5-8 人）</li>
+                <li><strong>WAITING - 等待阶段</strong> - 等待玩家加入（2-10 人）</li>
                 <li><strong>PREPARING - 准备阶段</strong> - 主持人按住互动键开始，分发身份</li>
                 <li><strong>SELECTING_HEROES - 英雄选择</strong> - 按 F1-F12 选择 OW 英雄</li>
                 <li><strong>PLAYING - 游戏进行中</strong>
