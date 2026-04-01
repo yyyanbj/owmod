@@ -8,8 +8,8 @@ Overwatch Workshop 创意游戏合集网站，部署在 GitHub Pages。
 owmod/
 ├── index.html          # 首页 - 游戏列表导航
 ├── css/style.css       # 全局样式
-├── sgs/index.html      # OW 三国杀游戏（从 ow-sswd 同步）
-├── wdsd/index.html     # 谁是卧底游戏（从 ow-ltk 同步）
+├── sswd/index.html     # 谁是卧底（从 ow-sswd 同步）
+├── sgs/index.html      # 三国杀（从 ow-ltk 同步）
 └── sync.sh             # 同步脚本
 ```
 
@@ -44,8 +44,8 @@ git push origin main
 
 ## 源项目
 
-- **OW 三国杀**: `~/workspace/ow-sswd/docs/visual-companion.html`
-- **谁是卧底**: `~/workspace/ow-ltk/visual-companion.html`
+- **谁是卧底**: `~/workspace/ow-sswd/docs/visual-companion.html`
+- **三国杀**: `~/workspace/ow-ltk/visual-companion.html`
 
 ## 添加新游戏
 
