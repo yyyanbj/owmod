@@ -32,7 +32,7 @@ if [ -f "$SSWD_SRC" ]; then
 
     # 添加导航栏
     TMP_FILE=$(mktemp)
-    sed '/<body>/a\    <!-- Top Navigation Bar -->\n    <nav class="navbar">\n        <div class="navbar-content">\n            <a href="../index.html" class="navbar-brand">🎮 OW Workshop</a>\n            <div class="navbar-links">\n                <a href="../sgs/index.html">三国杀</a>\n                <a href="../sswd/index.html">谁是卧底</a>\n            </div>\n        </div>\n    </nav>' "$SSWD_DST" > "$TMP_FILE"
+    sed '/<body>/a\    <!-- Top Navigation Bar -->\n    <nav class="navbar">\n        <div class="navbar-content">\n            <a href="../index.html" class="navbar-brand">🎮 OW Workshop</a>\n            <div class="navbar-links">\n                <a href="../sgs/index.html">三国杀</a>\n                <a href="../sswd/index.html">谁是卧底</a>\n                <a href="https://space.bilibili.com/23511429" target="_blank">📺 B 站</a>\n            </div>\n        </div>\n    </nav>' "$SSWD_DST" > "$TMP_FILE"
     mv "$TMP_FILE" "$SSWD_DST"
 
     echo "✅ 已同步：谁是卧底 -> sswd/index.html (已添加导航栏和统计代码)"
@@ -58,7 +58,7 @@ if [ -f "$LTK_SRC" ]; then
 
     # 添加导航栏
     TMP_FILE=$(mktemp)
-    sed '/<body>/a\    <!-- Top Navigation Bar -->\n    <nav class="navbar">\n        <div class="navbar-content">\n            <a href="../index.html" class="navbar-brand">🎮 OW Workshop</a>\n            <div class="navbar-links">\n                <a href="../sgs/index.html">三国杀</a>\n                <a href="../sswd/index.html">谁是卧底</a>\n            </div>\n        </div>\n    </nav>' "$SGS_DST" > "$TMP_FILE"
+    sed '/<body>/a\    <!-- Top Navigation Bar -->\n    <nav class="navbar">\n        <div class="navbar-content">\n            <a href="../index.html" class="navbar-brand">🎮 OW Workshop</a>\n            <div class="navbar-links">\n                <a href="../sgs/index.html">三国杀</a>\n                <a href="../sswd/index.html">谁是卧底</a>\n                <a href="https://space.bilibili.com/23511429" target="_blank">📺 B 站</a>\n            </div>\n        </div>\n    </nav>' "$SGS_DST" > "$TMP_FILE"
     mv "$TMP_FILE" "$SGS_DST"
 
     echo "✅ 已同步：三国杀 -> sgs/index.html (已添加导航栏和统计代码)"
